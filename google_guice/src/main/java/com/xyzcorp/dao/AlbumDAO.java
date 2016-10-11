@@ -25,7 +25,6 @@ public class AlbumDAO {
         return preparedStatement.execute();
     }
 
-    @Inject
     public void setConnection(Connection connection) {
         this.connection = connection;
     }

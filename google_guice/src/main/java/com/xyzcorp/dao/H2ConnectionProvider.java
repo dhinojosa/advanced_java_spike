@@ -21,7 +21,6 @@ public class H2ConnectionProvider implements Provider<Connection> {
     }
 
     @Override
-    @Provides
     public Connection get() {
         JdbcConnectionPool cp = JdbcConnectionPool.create(
                 url, userName, password);

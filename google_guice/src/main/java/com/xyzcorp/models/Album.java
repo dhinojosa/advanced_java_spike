@@ -2,9 +2,6 @@ package com.xyzcorp.models;
 
 import java.util.Objects;
 
-/**
- * Created by danno on 9/28/16.
- */
 public class Album {
     private String name;
     private String artist;
