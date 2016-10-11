@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.easymock.EasyMock.*;
 
-public class AlbumDAOTest {
+public class StandardAlbumDAOTest {
 
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -28,7 +28,7 @@ public class AlbumDAOTest {
 
     @Test
     public void testInsert() throws SQLException {
-        expect(connection.prepareStatement(AlbumDAO.INSERT_STMT)).andReturn(preparedStatement);
+        expect(connection.prepareStatement(StandardAlbumDAO.INSERT_STMT)).andReturn(preparedStatement);
         expect(preparedStatement.execute()).andReturn(true);
 
         preparedStatement.setString(1, "Zeppelin IV");
@@ -37,7 +37,7 @@ public class AlbumDAOTest {
 
         replay(connection, preparedStatement);
 
-        AlbumDAO albumDAO = new AlbumDAO();
+        StandardAlbumDAO albumDAO = new StandardAlbumDAO();
         albumDAO.setConnection(connection);
         boolean result = albumDAO.insert(new Album("Zeppelin IV", "Led Zeppelin", 1973));
         assertThat(result).isTrue();
@@ -53,13 +53,13 @@ public class AlbumDAOTest {
         thrown.expect(SQLException.class);
         thrown.expectMessage("SQL Exception Occurred");
 
-        expect(connection.prepareStatement(AlbumDAO.INSERT_STMT)).andThrow(
+        expect(connection.prepareStatement(StandardAlbumDAO.INSERT_STMT)).andThrow(
                 new SQLException("SQL Exception Occurred")
         );
 
         replay(connection, preparedStatement);
 
-        AlbumDAO albumDAO = new AlbumDAO();
+        StandardAlbumDAO albumDAO = new StandardAlbumDAO();
         albumDAO.setConnection(connection);
         albumDAO.insert(new Album("Zeppelin IV", "Led Zeppelin", 1973));
 
@@ -69,12 +69,12 @@ public class AlbumDAOTest {
     @Test
     @Category(value = UnitTest.class)
     public void testDelete() throws SQLException {
-        expect(connection.prepareStatement(AlbumDAO.DELETE_STMT)).andReturn(preparedStatement);
+        expect(connection.prepareStatement(StandardAlbumDAO.DELETE_STMT)).andReturn(preparedStatement);
         preparedStatement.setInt(1, 103);
         expect(preparedStatement.execute()).andReturn(true);
 
         replay(connection, preparedStatement);
-        AlbumDAO albumDAO = new AlbumDAO();
+        StandardAlbumDAO albumDAO = new StandardAlbumDAO();
         albumDAO.setConnection(connection);
         boolean result = albumDAO.delete(new Album(103, "Zeppelin IV", "Led Zeppelin", 1973));
         assertThat(result).isTrue();
@@ -84,7 +84,7 @@ public class AlbumDAOTest {
     @Test
     @Category(value = UnitTest.class)
     public void testUpdate() throws SQLException {
-        expect(connection.prepareStatement(AlbumDAO.UPDATE_STMT)).andReturn(preparedStatement);
+        expect(connection.prepareStatement(StandardAlbumDAO.UPDATE_STMT)).andReturn(preparedStatement);
         preparedStatement.setString(1, "Dark Side of the Moon");
         preparedStatement.setString(2, "Pink Floyd");
         preparedStatement.setInt(3, 1973);
@@ -92,7 +92,7 @@ public class AlbumDAOTest {
 
         expect(preparedStatement.execute()).andReturn(true);
         replay(connection, preparedStatement);
-        AlbumDAO albumDAO = new AlbumDAO();
+        StandardAlbumDAO albumDAO = new StandardAlbumDAO();
         albumDAO.setConnection(connection);
         boolean result = albumDAO.update(new Album(103, "Dark Side of the Moon", "Pink Floyd", 1973));
         assertThat(result).isTrue();
