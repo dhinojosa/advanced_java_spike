@@ -1,7 +1,10 @@
 package com.xyzcorp.dao;
 
+import com.xyzcorp.annotations.H2;
+import com.xyzcorp.annotations.Oracle;
 import com.xyzcorp.models.Album;
 
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -25,7 +28,8 @@ public class StandardAlbumDAO implements AlbumDAO {
         return preparedStatement.execute();
     }
 
-    public void setConnection(Connection connection) {
+    @Inject
+    public void setConnection(@Oracle Connection connection) {
         this.connection = connection;
     }
 
