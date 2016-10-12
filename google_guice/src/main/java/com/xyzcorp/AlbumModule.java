@@ -2,13 +2,17 @@ package com.xyzcorp;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.PrivateModule;
+import com.google.inject.Provider;
 import com.google.inject.name.Names;
 import com.xyzcorp.annotations.H2;
 import com.xyzcorp.annotations.Oracle;
 import com.xyzcorp.dao.*;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
+import java.sql.*;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.Executor;
 
 public class AlbumModule extends AbstractModule{
     @Override
@@ -31,7 +35,12 @@ public class AlbumModule extends AbstractModule{
                         .asEagerSingleton();
 
                 bind(Connection.class).annotatedWith(H2.class)
-                        .toProvider(ConnectionProvider.class);
+                        .toProvider(new Provider<Connection>() {
+                            @Override
+                            public Connection get() {
+                                return null;
+                            }
+                        });
 
                 expose(Connection.class).annotatedWith(H2.class);
             }
