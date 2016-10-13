@@ -1,5 +1,9 @@
 package com.xyzcorp;
 
+import com.xyzcorp.people.Person;
+
+import java.util.function.Function;
+
 public class Box<A> {
     private A contents;
 
@@ -17,6 +21,13 @@ public class Box<A> {
     public A getContents() {
         return contents;
     }
+
+    public <B> Box<B> map(Function<? super A, ? extends B> function)
+    {
+
+        return new Box<>(function.apply(contents));
+    }
+
 
     @Override
     @SuppressWarnings("unchecked")

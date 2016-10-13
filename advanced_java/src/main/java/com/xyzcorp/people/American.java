@@ -5,7 +5,6 @@ import java.util.Objects;
 public class American extends Person {
     private String ssn;
 
-
     public String getSsn() {
         return ssn;
     }

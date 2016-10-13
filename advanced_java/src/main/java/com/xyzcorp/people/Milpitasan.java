@@ -1,11 +1,9 @@
 package com.xyzcorp.people;
 
-public class Californian extends American {
-
-
+public class Milpitasan extends NorthernCalifornian {
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Californian{");
+        final StringBuilder sb = new StringBuilder("Milpitasan{");
         sb.append('}');
         return sb.toString();
     }
